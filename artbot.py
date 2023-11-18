@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 from openAi import OpenAiClient
 from chunkMessage import split_message
-
+import asyncio
 # Load environment variables
 from dotenv import load_dotenv
 
@@ -18,7 +18,7 @@ intents.message_content = True
 bot = commands.Bot(command_prefix='!', intents=intents)
 mapper = {}
 context_size = 10
-ignore_list = ["!showcontext", "!clearcontext", "!usecontext"]
+ignore_list = ["!showcontext", "!clearcontext", "!usecontext", "!setcontext"]
 
 
 # Event handler for when the bot is ready
@@ -62,6 +62,8 @@ async def show_context(ctx):
     if context_size == 0:
         await ctx.send(
             "Set context messages count before using context. You can use the `!setcontext` command to do so.")
+    if not mapper.get(ctx.channel.id):
+        await ctx.send("There is no context")
     await ctx.send("\n".join(item for item in mapper[ctx.channel.id]))
 
 
@@ -87,6 +89,17 @@ async def use_context(ctx, *, query: str):
     # Send each chunk as a separate message
     for chunk in response_chunks:
         await ctx.send(chunk)
+
+
+@bot.command(name='remindme')
+async def remind_me(ctx, *, query: float):
+    await asyncio.sleep(query)
+    # gpt_response = await gpt.ask_gpt(query)
+    # response_chunks = split_message(gpt_response)
+    #
+    # # Send each chunk as a separate message
+    # for chunk in response_chunks:
+    await ctx.send("Tadaaaa")
 
 
 # Event handler for processing messages

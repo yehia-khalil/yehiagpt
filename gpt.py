@@ -1,11 +1,11 @@
 import discord
 from discord.ext import commands
-from openAi import OpenAiClient
-from chunkMessage import split_message
+from utils.openAi import OpenAiClient
+from utils.chunkMessage import split_message
 import asyncio
 # Load environment variables
 from dotenv import load_dotenv
-from toThread import to_thread
+from utils.toThread import to_thread
 
 load_dotenv()
 

@@ -13,7 +13,7 @@ class OpenAiClient:
         try:
             # Send a prompt to OpenAI and get a response using the updated API
             response = openai.chat.completions.create(
-                model="gpt-3.5-turbo",  # Use an appropriate model
+                model="gpt-4",  # Use an appropriate model
                 messages=[
                     {"role": "user", "content": message}
                 ]

@@ -5,6 +5,7 @@ from chunkMessage import split_message
 import asyncio
 # Load environment variables
 from dotenv import load_dotenv
+from toThread import to_thread
 
 load_dotenv()
 
@@ -34,6 +35,7 @@ async def hello(ctx):
 
 
 # Command to use OpenAI
+@to_thread
 @bot.command(name='ask')
 async def ask_command(ctx, *, query: str = ""):
     if len(query) == 0:
@@ -76,6 +78,7 @@ async def clear_context(ctx):
     await ctx.send("Context cleared successfully.")
 
 
+@to_thread
 @bot.command(name='usecontext')
 async def use_context(ctx, *, query: str):
     context = "\n".join(item for item in mapper[ctx.channel.id])
